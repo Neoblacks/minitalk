@@ -16,7 +16,7 @@ OBJ_SRV = $(SRC_SRV:.c=.o)
 
 CC = cc
 
-CFLAGS = #-Wall -Wextra -Werror #-fsanitize=address,undefined
+CFLAGS = -g3 #-Wall -Wextra -Werror #-fsanitize=address,undefined
 
 RM = rm -f
 
@@ -36,11 +36,11 @@ $(LIBFT):
 
 clean:
 	$(MAKE) -C $(PATH_LIBFT) clean
-	$(RM) $(OBJS)
+	$(RM) $(OBJ_SRV) $(OBJ_CLIENT)
 
 fclean: clean
 	$(MAKE) -C $(PATH_LIBFT) fclean
-	$(RM) $(NAME)
+	$(RM) $(NAMECLT) $(NAMESRV)
 
 re: fclean all
 
