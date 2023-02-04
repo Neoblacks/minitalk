@@ -6,7 +6,7 @@
 /*   By: amugnier <amugnier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 11:19:59 by amugnier          #+#    #+#             */
-/*   Updated: 2023/02/03 17:17:21 by amugnier         ###   ########.fr       */
+/*   Updated: 2023/02/04 11:19:08 by amugnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	ft_handler(int signum)
 		g_signal = 1;
 }
 
-void	ft_encode(char **str, unsigned long len)
+void	ft_encode(char **str, unsigned long len, int pid)
 {
 	unsigned int	bits;
 
@@ -55,12 +55,12 @@ void	ft_encode(char **str, unsigned long len)
 		{
 			if (*str[2] & bits)
 			{
-				if (kill(ft_atoi(str[1]), SIGUSR1) == -1)
+				if (kill(pid, SIGUSR1) == -1)
 					exit(EXIT_FAILURE);
 			}
 			else
 			{
-				if (kill(ft_atoi(str[1]), SIGUSR2) == -1)
+				if (kill(pid, SIGUSR2) == -1)
 					exit(EXIT_FAILURE);
 			}
 			while (g_signal == 0)
@@ -76,6 +76,7 @@ int	main(int argc, char **argv)
 {
 	struct sigaction	act;
 	unsigned long long	len;
+	int					pid;
 
 	usleep(50);
 	g_signal = 0;
@@ -84,17 +85,18 @@ int	main(int argc, char **argv)
 		ft_printf("Error: Wrong number of arguments\n");
 		return (EXIT_FAILURE);
 	}
-	if ((ft_strstr(argv[1], "-1")) == EXIT_SUCCESS)
-	{
-		ft_printf("Error: Wrong PID\n");
-		return (EXIT_FAILURE);
-	}
 	len = ft_strlen(argv[2]) + 1;
 	sigemptyset(&act.sa_mask);
 	act.sa_flags = 0;
 	act.sa_handler = &ft_handler;
 	sigaction(SIGUSR2, &act, 0);
 	sigaction(SIGUSR1, &act, 0);
-	ft_encode(argv, len);
+	pid = ft_atoi(argv[1]);
+	if (pid == -1 || pid > PID_MAX)
+	{
+		ft_printf("Error: Wrong PID\n");
+		return (EXIT_FAILURE);
+	}
+	ft_encode(argv, len, pid);
 	return (0);
 }

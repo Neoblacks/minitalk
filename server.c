@@ -6,11 +6,13 @@
 /*   By: amugnier <amugnier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 11:19:32 by amugnier          #+#    #+#             */
-/*   Updated: 2023/02/03 16:47:52 by amugnier         ###   ########.fr       */
+/*   Updated: 2023/02/04 11:30:14 by amugnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
+
+char	*g_str;
 
 void	ft_get_pid(void)
 {
@@ -58,7 +60,6 @@ char	*ft_join_char(char *str, char c)
 
 void	ft_print_signal(int sig, siginfo_t *info, void *context)
 {
-	static char			*str;
 	static unsigned int	bits = 0x80;
 	static char			symbol = 0;
 
@@ -70,13 +71,13 @@ void	ft_print_signal(int sig, siginfo_t *info, void *context)
 	{
 		if (!symbol)
 		{
-			ft_printf("%s\n", str);
+			ft_printf("%s\n", g_str);
 			kill(info->si_pid, SIGUSR2);
-			free(str);
-			str = 0;
+			free(g_str);
+			g_str = 0;
 		}
 		else
-			str = ft_join_char(str, symbol);
+			g_str = ft_join_char(g_str, symbol);
 		bits = 0x80;
 		symbol = 0;
 	}
