@@ -6,7 +6,7 @@
 /*   By: amugnier <amugnier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 17:28:43 by amugnier          #+#    #+#             */
-/*   Updated: 2023/02/03 17:11:57 by amugnier         ###   ########.fr       */
+/*   Updated: 2023/02/06 11:10:25 by amugnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stddef.h>
+# include <stdio.h>
 # include "get_next_line.h"
 # include "ft_printf.h"
 
@@ -40,6 +41,7 @@ char	*ft_itoa(int n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char	*ft_uitoa(unsigned int n);
 
+int		ft_strstr(const char *str, char *comp);
 int		ft_atoi(const char *str);
 int		ft_isascii(int c);
 int		ft_isalnum(int c);

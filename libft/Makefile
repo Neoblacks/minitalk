@@ -6,7 +6,7 @@
 #    By: amugnier <amugnier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/30 17:55:30 by amugnier          #+#    #+#              #
-#    Updated: 2023/02/03 17:11:41 by amugnier         ###   ########.fr        #
+#    Updated: 2023/02/06 11:27:33 by amugnier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,6 +63,7 @@ SRCS = ft_atoi.c \
 	  ft_printf.c \
 	  ft_printf_utils.c \
 	  ft_put_pointer.c \
+	  ft_strstr.c
 
 OBJ = $(SRCS:.c=.o)
 

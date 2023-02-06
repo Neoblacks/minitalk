@@ -6,35 +6,13 @@
 /*   By: amugnier <amugnier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 11:19:59 by amugnier          #+#    #+#             */
-/*   Updated: 2023/02/04 15:41:05 by amugnier         ###   ########.fr       */
+/*   Updated: 2023/02/06 11:49:26 by amugnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
 int	g_signal;
-
-int	ft_strstr(const char *str, char *comp)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	if (str[i] == '\0' && comp[j] == '\0')
-		return (EXIT_SUCCESS);
-	while (str[i] != '\0')
-	{
-		while (str[i + j] == comp[j] && str[i + j] != '\0' && comp[j] != '\0')
-			j++;
-		if (comp[j] == '\0' && str[i + j] == '\0')
-			return (EXIT_SUCCESS);
-		else
-			j = 0;
-		i++;
-	}
-	return (EXIT_FAILURE);
-}
 
 void	ft_handler(int signum)
 {
@@ -86,14 +64,8 @@ int	ft_parse_arg(char *str)
 	return (EXIT_SUCCESS);
 }
 
-int	main(int argc, char **argv)
+int	ft_error(int argc, char **argv)
 {
-	struct sigaction	act;
-	unsigned long long	len;
-	int					pid;
-
-	usleep(50);
-	g_signal = 0;
 	if (argc != 3)
 	{
 		ft_printf("Error: Wrong number of arguments\n");
@@ -109,6 +81,20 @@ int	main(int argc, char **argv)
 		ft_printf("Error: Wrong string\n");
 		return (EXIT_FAILURE);
 	}
+	else
+		return (EXIT_SUCCESS);
+}
+
+int	main(int argc, char **argv)
+{
+	struct sigaction	act;
+	unsigned long long	len;
+	int					pid;
+
+	usleep(50);
+	g_signal = 0;
+	if (ft_error(argc, argv) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
 	len = ft_strlen(argv[2]) + 1;
 	sigemptyset(&act.sa_mask);
 	act.sa_flags = 0;

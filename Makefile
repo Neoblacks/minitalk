@@ -23,13 +23,13 @@ RM = rm -f
 all: $(LIBFT) $(NAMECLT) $(NAMESRV)
 
 $(NAMECLT): $(OBJ_CLIENT)
-	$(CC) $(CFLAGS) -g3 -o $(NAMECLT) $(OBJ_CLIENT) $(LIBFT)
+	$(CC) $(CFLAGS) -o $(NAMECLT) $(OBJ_CLIENT) $(LIBFT)
 
 $(NAMESRV): $(OBJ_SRV)
 	$(CC) $(CFLAGS) -o $(NAMESRV) $(OBJ_SRV) $(LIBFT)
 
 .c.o:
-	$(CC) $(CFLAGS) -c $< -o $(<:.c=.o) -I $(PATH_LIBFT)
+	$(CC) $(CFLAGS) -I $(PATH_LIBFT) -c $< -o $(<:.c=.o)
 
 $(LIBFT):
 	$(MAKE) -C $(PATH_LIBFT)

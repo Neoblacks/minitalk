@@ -1,20 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amugnier <amugnier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/03 11:28:38 by amugnier          #+#    #+#             */
-/*   Updated: 2023/02/06 11:39:00 by amugnier         ###   ########.fr       */
+/*   Created: 2023/02/06 11:04:59 by amugnier          #+#    #+#             */
+/*   Updated: 2023/02/06 11:08:11 by amugnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
-# define PID_MAX 4194304
+#include "libft.h"
 
-# include "libft/libft.h"
-# include <signal.h>
+int	ft_strstr(const char *str, char *comp)
+{
+	int	i;
+	int	j;
 
-#endif
+	i = 0;
+	j = 0;
+	if (str[i] == '\0' && comp[j] == '\0')
+		return (EXIT_SUCCESS);
+	while (str[i] != '\0')
+	{
+		while (str[i + j] == comp[j] && str[i + j] != '\0' && comp[j] != '\0')
+			j++;
+		if (comp[j] == '\0' && str[i + j] == '\0')
+			return (EXIT_SUCCESS);
+		else
+			j = 0;
+		i++;
+	}
+	return (EXIT_FAILURE);
+}
